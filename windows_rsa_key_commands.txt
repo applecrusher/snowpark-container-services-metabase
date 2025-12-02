@@ -1,0 +1,8 @@
+See here for more information:
+https://community.snowflake.com/s/article/How-To-Generate-Key-Pair-using-ssh-keygen-command-on-Windows
+
+Generate the private key
+ssh-keygen -t rsa -b 2048 -m pkcs8 -C "<Comment>"
+
+Convert the public key to pkcs8 format
+ssh-keygen -e -f path\to\ssh\key.pub -m pkcs8

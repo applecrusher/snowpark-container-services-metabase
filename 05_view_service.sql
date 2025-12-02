@@ -1,0 +1,13 @@
+SHOW SERVICE CONTAINERS IN SERVICE METABASE_SERVICE;
+
+
+--There are several ways to call the logs and get the status
+SELECT SYSTEM$GET_SERVICE_STATUS('METABASE_SERVICE');
+SELECT SYSTEM$GET_SERVICE_LOGS('METABASE_DB.PUBLIC.METABASE_SERVICE', 0, 'metabase');
+SELECT SYSTEM$GET_SERVICE_LOGS('METABASE_DB.PUBLIC.METABASE_SERVICE', 0, 'postgres');
+
+SELECT SYSTEM$GET_SERVICE_LOGS('METABASE_SERVICE', 0, 'metabase-container', 1000); -- Get last ten, modify accordingly.
+
+
+--This is the endpoint you need to connect to your app
+SHOW ENDPOINTS IN SERVICE METABASE_SERVICE;

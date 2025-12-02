@@ -1,0 +1,12 @@
+
+docker login XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/container_hol_db/public/image_repo -u METABASE_SERVICE_USER
+
+
+docker pull --platform linux/amd64 postgres:15
+docker tag postgres:15 XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/postgres:15
+docker push XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/postgres:15
+
+
+docker pull --platform linux/amd64 metabase/metabase:latest
+docker tag metabase/metabase:latest XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/metabase:latest
+docker push XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/metabase:latest

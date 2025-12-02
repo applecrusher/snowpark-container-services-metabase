@@ -1,0 +1,43 @@
+spec:
+  containers:
+    # --- Container 1: PostgreSQL (Internal Storage) ---
+    - name: postgres
+      image: XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/postgres:15
+      env:
+        POSTGRES_DB: metabase_internal
+        POSTGRES_USER: metabase_user
+        POSTGRES_PASSWORD: StrongPassword123!
+        PGDATA: /var/lib/postgresql/data/pgdata
+      volumeMounts:
+        - name: metabase-data
+          mountPath: /var/lib/postgresql/data
+
+    # --- Container 2: Metabase (Frontend) ---
+    - name: metabase
+      image: XXXXXXX-XXXXXXX.registry.snowflakecomputing.com/metabase_db/public/image_repo/metabase:latest
+      env:
+        MB_DB_TYPE: postgres
+        MB_DB_DBNAME: metabase_internal
+        MB_DB_PORT: 5432
+        MB_DB_USER: metabase_user
+        MB_DB_PASS: StrongPassword123!
+        MB_DB_HOST: localhost 
+      resources:
+        requests:
+          memory: 1.5G
+          cpu: 0.5
+        limits:
+          memory: 3G
+          cpu: 0.5
+
+  # --- ENDPOINTS (Corrected: Moved left to align with 'containers') ---
+  endpoints:
+    - name: http
+      port: 3000
+      public: true
+
+  # --- Persistent Storage Configuration ---
+  volumes:
+    - name: metabase-data
+      source: block
+      size: 10Gi
